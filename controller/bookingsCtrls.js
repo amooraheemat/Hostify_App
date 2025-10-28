@@ -1,4 +1,4 @@
-import Booking from "../modules/bookings.js";
+import Booking from "../model/bookings.js";
 import jwt from "jsonwebtoken";
 import { validationResult } from "express-validator";
 import dotenv from "dotenv";
