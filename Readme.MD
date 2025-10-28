@@ -137,9 +137,9 @@ This project is a testament to our learning journey with Node.js, Express, etc. 
 ## Hostify Backend Team
 Hostify; Lounge Management System was developed by a team of six backend developers collaborating to deliver a production-ready web application.
 
-Ifeoluwa Oworu 
-Joshua Bello
-James Nnaemeka Anthony 
-Clerk Oghenekobaro
-Amoo Raheemat 
-Elimuyah Odinekachukwu
+1. Ifeoluwa Oworu 
+2. Joshua Bello
+3. James Nnaemeka Anthony 
+4. Clerk Oghenekobaro
+5. Amoo Raheemat 
+6. Elimuyah Odinekachukwu
