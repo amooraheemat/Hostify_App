@@ -13,8 +13,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
+app.set('view engine', 'ejs');
+app.set('views', './views');
+
 app.use('/api', apiRoutes);
 
+
+// basic health
+app.get('/', (req, res) => res.send({ ok: true, message: 'Lounge booking backend' }));
 app.use(notFound);
 app.use(errorHandler);
 

@@ -1,30 +1,49 @@
 import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
-dotenv.config();
+import ejs from 'ejs';
+import path from 'path';
 
-const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST,
-  port: Number(process.env.EMAIL_PORT) || 587,
-  secure: false,
-  auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
+const transport = nodemailer.createTransport({
+  host: process.env.SMTP_HOST || 'smtp.gmail.com',
+  port: Number(process.env.SMTP_PORT) || 465,
+  secure: true, 
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
 });
 
-export const sendBookingConfirmation = async ({ to, booking }) => {
-  const html = `<p>Hi ${booking.name},</p>
-    <p>Your booking for <strong>${booking.date}</strong> at <strong>${booking.time}</strong> (${booking.space}) is confirmed.</p>
-    <p>Guests: ${booking.people}</p>`;
-  await transporter.sendMail({ from: process.env.EMAIL_USER, to, subject: 'Booking Confirmation', html });
+export const sendBookingConfirmation = async (booking) => {
+  try {
+    const templatePath = path.join(process.cwd(),'src','Services' ,'views', 'email', 'bookingConfirmation.ejs');
+    const html = await ejs.renderFile(templatePath, { booking });
+
+    await transport.sendMail({
+      from: `"Lounge Booking" <${process.env.SMTP_USER}>`,
+      to: booking.email,
+      subject: `Booking Confirmed — ${booking.space}`,
+      html,
+    });
+
+    console.log(` Cancellation email sent to ${booking.email}`);
+  } catch (err) {
+    console.error(' Error sending booking confirmation email:', err.message);
+  }
 };
 
-export const sendOrderConfirmation = async ({ to, order }) => {
-  const itemsHtml = order.items.map(i => `<li>${i.quantity} x ${i.menuItem.name}</li>`).join('');
-  const html = `<p>Hi ${order.customerName},</p>
-    <p>Your order is received:</p><ul>${itemsHtml}</ul><p>Total: ${order.totalAmount}</p>`;
-  await transporter.sendMail({ from: process.env.EMAIL_USER, to, subject: 'Order Confirmation', html });
-};
+export const sendBookingCancellation = async (cancelbooking) => {
+  try {
+    const templatePath = path.join(process.cwd(),'src', 'Services', 'views', 'email', 'bookingCancellation.ejs');
+    const html = await ejs.renderFile(templatePath, { booking:cancelbooking });
 
-export const sendPasswordReset = async ({ to, token }) => {
-  const url = `${process.env.FRONTEND_URL}/reset-password?token=${token}`;
-  const html = `<p>Reset your password (valid 1 hour): <a href="${url}">${url}</a></p>`;
-  await transporter.sendMail({ from: process.env.EMAIL_USER, to, subject: 'Password Reset', html });
+    await transport.sendMail({
+      from: `"Lounge Booking" <${process.env.SMTP_USER}>`,
+      to: cancelbooking.email,
+      subject: `Booking Cancelled — ${cancelbooking.space}`,
+      html,
+    });
+
+    console.log(`Cancellation email sent to ${cancelbooking.email}`);
+  } catch (err) {
+    console.error(' Error sending booking cancellation email:', err.message);
+  }
 };

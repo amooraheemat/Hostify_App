@@ -1,16 +1,116 @@
-import * as BookingService from '../Services/bookingsServices.js';
-import { validationResult } from 'express-validator';
+import Booking from "../modules/bookings.js";
+import jwt from "jsonwebtoken";
+import { validationResult } from "express-validator";
+import dotenv from "dotenv";
+import { sendBookingCancellation, sendBookingConfirmation } from "../Services/emailServices.js";
+dotenv.config();
 
-export const create = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
-  try { const b = await BookingService.createBooking(req.body); res.status(201).json(b); } catch (err) { res.status(500).json({ error: err.message }); }
+const generateToken = (id, email) => jwt.sign({ id, email }, process.env.JWT_SECRET, { expiresIn: "30d" });
+
+export const createBooking = async (req, res, next) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+
+    const { customerName, phoneNum, email, space, date, time, people, password } = req.body;
+
+    const existing = await Booking.findOne({ email, date, time });
+    if (existing) return res.status(400).json({ message: "Booking already exists for this time." });
+
+    
+
+    const booking = await Booking.create({
+      customerName,
+      phoneNum,
+      email,
+      space,
+      date,
+      time,
+      people,
+      
+    });
+
+    const token = generateToken(booking._id, booking.email);
+
+    await sendBookingConfirmation(booking);
+
+    res.status(201).json({ message: "Booking created successfully", token, booking });
+  } catch (err) {
+    next(err);
+  }
 };
 
-export const list = async (req, res) => {
-  try { const filter = {}; if (req.query.date) filter.date = req.query.date; res.json(await BookingService.getBookings(filter)); } catch (err) { res.status(500).json({ error: err.message }); }
+
+
+export const getAllBookings = async (req, res, next) => {
+  try {
+    
+const bookings = await Booking.find();
+    res.json({message:"List of Bookings", bookings}, );
+  } catch (err) {
+    next(err);
+  }
 };
 
-export const cancel = async (req, res) => {
-  try { res.json(await BookingService.cancelBooking(req.params.id)); } catch (err) { res.status(500).json({ error: err.message }); }
+
+export const getOneBooking = async (req, res, next) => {
+  try {
+    const booking = await Booking.findById(req.params.id);
+    if (!booking) return res.status(404).json({ message: "Booking not found" });
+    res.json(booking);
+  } catch (err) {
+    next(err);
+  }
 };
+
+
+export const updateBooking = async (req, res, next) => {
+  try {
+    const updateBooking = await Booking.findByIdAndUpdate(req.params.id, req.body, {new: true});
+    if (!updateBooking) return res.status(404).json({ message: "Booking not found" });
+
+    res.json({ message: "Booking updated", updateBooking });
+  } catch (err) {
+    next(err);
+  }
+};
+
+ 
+export const deleteBooking = async (req, res, next) => {
+  try {
+    const booking = await Booking.findByIdAndDelete(req.params.id);
+    if (!booking) return res.status(404).json({ message: "Booking not found" });
+
+    res.json({ message: "Booking deleted successfully", deleteBooking:booking });
+  } catch (err) {
+    next(err);
+  }
+};
+
+
+export const cancelBooking = async (req, res, next) => {
+  try {
+    const booking = await Booking.findById(req.params.id.trim());
+
+    if (!booking) {
+      return res.status(404).json({ message: 'Booking not found' });
+    }
+
+    booking.status = 'Cancelled';
+    await booking.save();
+
+    const plainBooking = booking.toObject();
+
+    
+    await sendBookingCancellation(plainBooking);
+
+    res.json({
+      message: 'Booking cancelled successfully',
+      booking: plainBooking,
+    });
+  } catch (err) {
+    console.error('Error cancelling booking:', err);
+    next(err);
+  }
+};
+  
