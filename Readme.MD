@@ -11,7 +11,7 @@ Hostify is a smart lounge management webApp that helps lounge owners efficiently
 - [Project Structure](#project-structure)
 - [API Endpoints](#api-endpoints)
 - [How It Works](#how-it-works)
-- [Contributions](#Contributions)
+- [Contributions (GithuB)](#Contributions (GithuB))
 - [Future Improvements](#future-improvements)
 - [Note for Instructor](#note-for-instructor)
 - [Hostify Backend Team](#hostify-backend-team)
