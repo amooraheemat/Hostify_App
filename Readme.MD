@@ -134,7 +134,7 @@ Hostify is a smart lounge management webApp that helps lounge owners efficiently
 ## Contributions (GithuB)
 
 1. clone the repository git clone https://github.com/amooraheemat/Hostify_App.git
-2. Create a new branch (git checkout -b branch/yourbranchname)
+2. Create and switch to a new branch (git checkout -b branch/yourbranchname)
 3. Add all files to stage (git add .[git add file1.js = Stages specific files])
 3. Commit your changes (git commit -m 'add comments')
 4. Push to the main branch (git push origin head)
