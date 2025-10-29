@@ -11,6 +11,7 @@ Hostify is a smart lounge management webApp that helps lounge owners efficiently
 - [Project Structure](#project-structure)
 - [API Endpoints](#api-endpoints)
 - [How It Works](#how-it-works)
+- [Contributions](#Contributions)
 - [Future Improvements](#future-improvements)
 - [Note for Instructor](#note-for-instructor)
 - [Hostify Backend Team](#hostify-backend-team)
@@ -130,14 +131,14 @@ Hostify is a smart lounge management webApp that helps lounge owners efficiently
 - Integrate payment gateway for online transactions
 - Improve the user interface
 
-## Contributions on GithuB
+## Contributions (GithuB)
 
-1. clone the repository https://github.com/amooraheemat/Hostify_App.git
+1. clone the repository git clone https://github.com/amooraheemat/Hostify_App.git
 2. Create a new branch (git checkout -b branch/yourbranchname)
 3. Add all files to stage (git add .[git add file1.js = Stages specific files])
-3. Commit your changes (git commit -am 'add comments')
-4. Push to the branch (git push origin branch/yourbranchname)
-Open a Pull Request
+3. Commit your changes (git commit -m 'add comments')
+4. Push to the main branch (git push origin head)
+Open a Pull Request (review and merge to main branch)
 
 Note: Always get current updates or changes on the repository before you commit/push to avoid conflict (git pull origin main)
 See video for more details: https://www.youtube.com/watch?v=Lf3DYRvCPFo
