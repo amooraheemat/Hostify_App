@@ -41,7 +41,7 @@ export const createBooking = async (req, res, next) => {
 };
 
 
-
+// Get All Bookings
 export const getAllBookings = async (req, res, next) => {
   try {
     
@@ -52,7 +52,7 @@ const bookings = await Booking.find();
   }
 };
 
-
+// Get One Booking
 export const getOneBooking = async (req, res, next) => {
   try {
     const booking = await Booking.findById(req.params.id);
@@ -63,7 +63,7 @@ export const getOneBooking = async (req, res, next) => {
   }
 };
 
-
+// Update Booking
 export const updateBooking = async (req, res, next) => {
   try {
     const updateBooking = await Booking.findByIdAndUpdate(req.params.id, req.body, {new: true});
@@ -75,7 +75,7 @@ export const updateBooking = async (req, res, next) => {
   }
 };
 
- 
+// Delete Booking
 export const deleteBooking = async (req, res, next) => {
   try {
     const booking = await Booking.findByIdAndDelete(req.params.id);
@@ -87,7 +87,7 @@ export const deleteBooking = async (req, res, next) => {
   }
 };
 
-
+// Cancel Booking
 export const cancelBooking = async (req, res, next) => {
   try {
     const booking = await Booking.findById(req.params.id.trim());
