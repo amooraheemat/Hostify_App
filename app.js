@@ -2,7 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import cors from 'cors';
-import {connectDatabase } from './Config/Db.js'; 
+import {connectDatabase } from './Config/db.js';
 import apiRoutes from './Routes/index.js';
 import { notFound, errorHandler } from './Middlewares/errorMiddleware.js';
 

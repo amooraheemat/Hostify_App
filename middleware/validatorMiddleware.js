@@ -9,6 +9,3 @@ export const bookingValidator = [
   body("time").notEmpty().withMessage("Time required"),
   body("people").isInt({ min: 1 }).withMessage("People must be >= 1"),
 ];
-
-
-
