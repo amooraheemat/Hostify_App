@@ -72,45 +72,57 @@ Hostify is a smart lounge management webApp that helps lounge owners efficiently
 ## Project Structure
 
 ```
-/
+Hostify_App/
 │
-├── server.js                   # Server entry point
-├── package.json
-├──app.js                       # Main entry point
+├── src/
+│   ├── Config/
+│   │   └── db.js                       # Database connection setup (MongoDB)
+│   │
+│   ├── Controllers/
+│   │   ├── auth.controller.js          # Handles login, registration, admin creation
+│   │   ├── booking.controller.js       # Booking-related logic (create, update, cancel)
+│   │   ├── feedback.controller.js      # Manages customer feedback
+│   │   ├── order.controller.js         # Handles customer orders
+│   │   ├── report.controller.js        # Staff daily reports logic
+│   │   └── user.controller.js          # Manages user-related logic
+│   │
+│   ├── Middleware/
+│   │   ├── auth.middleware.js          # JWT verification and admin protection
+│   │   ├── booking.middleware.js       # Booking-specific middleware
+│   │   ├── error.middleware.js         # Centralized error handling
+│   │   └── validator.middleware.js     # Input validation (express-validator)
+│   │
+│   ├── Models/
+│   │   ├── auth.model.js               # Authentication schema
+│   │   ├── booking.model.js            # Booking schema
+│   │   ├── feedback.model.js           # Feedback schema
+│   │   ├── order.model.js              # Order schema
+│   │   ├── report.model.js             # Staff daily report schema
+│   │   └── user.model.js               # User/Admin schema
+│   │
+│   ├── Routes/
+│   │   ├── auth.routes.js              # /api/auth
+│   │   ├── booking.routes.js           # /api/bookings
+│   │   ├── feedback.routes.js          # /api/feedback
+│   │   ├── order.routes.js             # /api/orders
+│   │   ├── report.routes.js            # /api/reports
+│   │   └── user.routes.js              # /api/users
+│   │
+│   ├── Services/
+│   │   └── email.services.js           # Nodemailer email configurations (confirmation, alerts)
+│   │
+│   ├── Utils/
+│   │   ├── generateToken.js            # JWT generator
+│   │   └── logger.js                   # Optional logging utility
+│   │
+│   ├── app.js                          # Express app setup and middleware configuration
+│   └── server.js                       # Server entry point (runs Express app)
 │
-├── config/
-│   └── db.js                   # MongoDB connection
-│
-├── controllers/
-│   ├── authController.js       # Authentication logic
-│   ├── bookingController.js    # Bookings logic
-│   ├── orderController.js      # Orders logic
-│   ├── feedbackController.js   # Feedback logic
-│   ├── reportController.js     # Reports aggregation
-│   └── emailController.js      # Email notifications
-│
-├── middleware/
-│   ├── authMiddleware.js       # JWT verification & role-based access
-│   └── errorHandler.js         # Global error handling
-│
-├── models/
-│   ├── User.js
-│   ├── Booking.js
-│   ├── Order.js
-│   ├── Feedback.js
-│   └── Report.js
-│
-├── routes/
-│   ├── authRoutes.js
-│   ├── bookingRoutes.js
-│   ├── orderRoutes.js
-│   ├── feedbackRoutes.js
-│   └── reportRoutes.js
-│
-└── utils/
-    ├── generateToken.js        # JWT generator
-    └── emailService.js         # Nodemailer setup
-
+├── .env                                # Environment variables
+├── .gitignore                          # Ignored files for git
+├── package.json                        # Project dependencies and scripts
+├── postman_collection.json             # Postman API collection (optional)
+└── README.md                           # Project documentation
 ```
 
 ## How It Works
