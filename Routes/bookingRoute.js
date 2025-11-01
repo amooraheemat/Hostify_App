@@ -22,6 +22,8 @@ router.get("/viewbooking/:id",protect, getOneBooking);
 router.put("/update",protect, updateBooking);
 router.patch('/cancel/:id',protect, cancelBooking);
 router.delete("/delete/:id",protect, deleteBooking);
+
+// Admin Routes
 router.get("/all", getAllBookings);
 
 export default router;
