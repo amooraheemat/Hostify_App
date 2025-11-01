@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import User from "../model/user.model.js";
+import User from "../../Model/user.model.js";
 
 //Get all users admin only
 export const getAllUsers = async (req, res) => {

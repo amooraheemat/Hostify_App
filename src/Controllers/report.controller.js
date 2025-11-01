@@ -1,8 +1,8 @@
-import Report from "../model/report.model.js";
-import Feedback from "../model/feedback.model.js";
-import Order from "../model/order.model.js";
-import Booking from "../model/Booking.js";
-import User from "../model/user.model.js";
+import Report from "../../Model/report.model.js";
+import Feedback from "../../Model/feedback.model.js";
+import Order from "../../Model/order.model.js";
+import Booking from "../../Model/booking.model.js";
+import User from "../../Model/user.model.js";
 
 /**
  * @desc Create a daily report for a staff
