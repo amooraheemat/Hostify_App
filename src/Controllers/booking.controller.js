@@ -1,8 +1,8 @@
-import Booking from "../model/bookings.js";
+import Booking from "../Models/bookings.model.js";
 import jwt from "jsonwebtoken";
 import { validationResult } from "express-validator";
 import dotenv from "dotenv";
-import { sendBookingCancellation, sendBookingConfirmation } from "../Services/emailServices.js";
+import { sendBookingCancellation, sendBookingConfirmation } from "../../Services/emailServices.js";
 dotenv.config();
 
 const generateToken = (id, email) => jwt.sign({ id, email }, process.env.JWT_SECRET, { expiresIn: "30d" });

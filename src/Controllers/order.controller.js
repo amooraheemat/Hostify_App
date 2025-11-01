@@ -1,4 +1,4 @@
-import Order from "../models/orderModel.js";
+import Order from "../../Model/order.model.js";
 
 // Create a new order
 export const createOrder = async (req, res, next) => {
