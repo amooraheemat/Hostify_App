@@ -19,7 +19,7 @@ export const sendBookingConfirmation = async (booking) => {
 
     await transport.sendMail({
       from: `"Lounge Booking" <${process.env.SMTP_USER}>`,
-      to: booking.email,
+      to:  req.user.email,
       subject: `Booking Confirmed — ${booking.space}`,
       html,
     });

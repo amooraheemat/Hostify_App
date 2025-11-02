@@ -12,17 +12,17 @@ export const createBooking = async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
-    const { customerName, phoneNum, email, space, date, time, people, password } = req.body;
+    const { customerName, phoneNum,space, date, time, people,} = req.body;
 
-    const existing = await Booking.findOne({ email, date, time });
+    const existing = await Booking.findOne({ customerName, date, time });
     if (existing) return res.status(400).json({ message: "Booking already exists for this time." });
 
     
 
     const booking = await Booking.create({
+      user: req.user.id,
       customerName,
       phoneNum,
-      email,
       space,
       date,
       time,
@@ -30,7 +30,7 @@ export const createBooking = async (req, res, next) => {
       
     });
 
-    const token = generateToken(booking._id, booking.email);
+   
 
     await sendBookingConfirmation(booking);
 
@@ -45,8 +45,8 @@ export const createBooking = async (req, res, next) => {
 export const getAllBookings = async (req, res, next) => {
   try {
     
-const bookings = await Booking.find();
-    res.json({message:"List of Bookings", bookings}, );
+const bookings = await Booking.find().populate("user", "username email");
+    res.status(200).json({message:"List of Bookings", bookings}, );
   } catch (err) {
     next(err);
   }
