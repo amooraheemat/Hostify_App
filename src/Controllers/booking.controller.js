@@ -1,7 +1,14 @@
-
+<<<<<<<< HEAD:controller/booking.controller.js
 import Booking from "../model/booking.model.js";
 import { validationResult } from "express-validator";
+import dotenv from "dotenv";
 import { sendBookingCancellation, sendBookingConfirmation } from "../Services/emailServices.js";
+========
+import Booking from "../Models/bookings.model.js";
+import { validationResult } from "express-validator";
+import { sendBookingCancellation, sendBookingConfirmation } from "../../Services/emailServices.js";
+
+>>>>>>>> main:src/Controllers/booking.controller.js
 
 export const createBooking = async (req, res, next) => {
   try {

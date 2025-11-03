@@ -1,4 +1,4 @@
-import { body } from 'express-validator';
+import { body, validationResult } from 'express-validator';
 
 export const bookingValidator = [
   body("customerName").notEmpty().withMessage("Customer name required"),
@@ -9,6 +9,20 @@ export const bookingValidator = [
   body("time").notEmpty().withMessage("Time required"),
   body("people").isInt({ min: 1 }).withMessage("People must be >= 1"),
 ];
+
+
+export const handleValidation = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      success: false,
+      message: "Validation failed",
+      errors: errors.array().map((err) => err.msg),
+    });
+  }
+  next();
+};
+
 
 
 
