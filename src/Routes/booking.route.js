@@ -8,8 +8,8 @@ import {
   getAllBookings,
   getOneBooking
 } from "../Controllers/booking.controller.js";
-import {  bookingValidator } from "../Middlewares/validator.middleware.js";
-import { protect } from "../Middlewares/booking.middleware.js";
+import {bookingValidator, }  from "../Middlewares/validator.middleware.js";
+import {protect} from "../Middlewares/auth.middleware.js"
 
 const router = express.Router();
 

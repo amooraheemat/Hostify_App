@@ -3,12 +3,12 @@ import ejs from 'ejs';
 import path from 'path';
 
 const transport = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'smtp.gmail.com',
-  port: Number(process.env.SMTP_PORT) || 465,
+  host: process.env.EMAIL_HOST || 'smtp.gmail.com',
+  port: Number(process.env.EMAIL_PORT) || 465,
   secure: true, 
   auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
 });
 
@@ -18,7 +18,7 @@ export const sendBookingConfirmation = async (booking) => {
     const html = await ejs.renderFile(templatePath, { booking });
 
     await transport.sendMail({
-      from: `"Lounge Booking" <${process.env.SMTP_USER}>`,
+      from: `"Lounge Booking" <${process.env.EMAIL_USER}>`,
       to:  req.user.email,
       subject: `Booking Confirmed — ${booking.space}`,
       html,
@@ -36,7 +36,7 @@ export const sendBookingCancellation = async (cancelbooking) => {
     const html = await ejs.renderFile(templatePath, { booking:cancelbooking });
 
     await transport.sendMail({
-      from: `"Lounge Booking" <${process.env.SMTP_USER}>`,
+      from: `"Lounge Booking" <${process.env.EMAIL_USER}>`,
       to: cancelbooking.email,
       subject: `Booking Cancelled — ${cancelbooking.space}`,
       html,

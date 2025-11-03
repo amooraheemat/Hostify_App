@@ -1,7 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import { connectDatabase } from "./src/Config/db.js";
-import userRoutes from "./routes/user.route.js";
+import userRoutes from "./src/Routes/user.route.js";
+import bookingRoute from "./src/Routes/index.js"
 
 
 dotenv.config();
@@ -11,6 +12,7 @@ const app = express();
 app.use(express.json());
 
 app.use("/api/users", userRoutes);
+app.use('/api', bookingRoute)
 
 
 

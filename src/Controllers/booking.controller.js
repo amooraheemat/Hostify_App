@@ -1,7 +1,7 @@
 
-import Booking from "../Models/bookings.model.js";
+import Booking from "../Models/booking.model.js";
 import { validationResult } from "express-validator";
-import { sendBookingCancellation, sendBookingConfirmation } from "../Services/emailServices.js";
+import { sendBookingCancellation, sendBookingConfirmation } from "../Services/email.services.js";
 
 export const createBooking = async (req, res, next) => {
   try {
@@ -12,7 +12,10 @@ export const createBooking = async (req, res, next) => {
 
     const existing = await Booking.findOne({ phoneNum, date, time });
     if (existing) return res.status(400).json({ message: "Booking already exists for this time." });
-
+if (date && date.includes("/")) {
+      const [day, month, year] = date.split("/");
+      date = `${year}-${month}-${day}`;
+    }
     
 
     const booking = await Booking.create({
