@@ -7,9 +7,9 @@ import {
   deleteBooking,
   getAllBookings,
   getOneBooking
-} from "../Controllers/bookingsCtrls.js";
-import {  bookingValidator } from "../Middlewares/validatorMiddleware.js";
-import { protect } from "../Middlewares/bookingMiddleware.js";
+} from "../controller/booking.controller.js";
+import {  bookingValidator } from "../middleware/validatorMiddleware.js";
+import protect from "../controller/auth.controller.js"
 
 const router = express.Router();
 

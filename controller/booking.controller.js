@@ -1,11 +1,7 @@
-import Booking from "../model/bookings.js";
-import jwt from "jsonwebtoken";
+import Booking from "../model/booking.model.js";
 import { validationResult } from "express-validator";
 import dotenv from "dotenv";
 import { sendBookingCancellation, sendBookingConfirmation } from "../Services/emailServices.js";
-dotenv.config();
-
-const generateToken = (id, email) => jwt.sign({ id, email }, process.env.JWT_SECRET, { expiresIn: "30d" });
 
 export const createBooking = async (req, res, next) => {
   try {
@@ -14,7 +10,7 @@ export const createBooking = async (req, res, next) => {
 
     const { customerName, phoneNum,space, date, time, people,} = req.body;
 
-    const existing = await Booking.findOne({ customerName, date, time });
+    const existing = await Booking.findOne({ phoneNum, date, time });
     if (existing) return res.status(400).json({ message: "Booking already exists for this time." });
 
     
@@ -34,7 +30,7 @@ export const createBooking = async (req, res, next) => {
 
     await sendBookingConfirmation(booking);
 
-    res.status(201).json({ message: "Booking created successfully", token, booking });
+    res.status(201).json({ message: "Booking created successfully",  booking });
   } catch (err) {
     next(err);
   }

@@ -4,7 +4,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import {connectDatabase } from './Config/Db.js'; 
 import apiRoutes from './Routes/index.js';
-import { notFound, errorHandler } from './Middlewares/errorMiddleware.js';
+import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
 dotenv.config();
 await connectDatabase();
