@@ -1,4 +1,3 @@
-<<<<<<< HEAD:src/Controllers/auth.controller.js
 import User from "../Models/user.model.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
@@ -95,49 +94,3 @@ export const loginUser = async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
-=======
-
-import jwt from "jsonwebtoken";
-import User from "../Models/user.model.js";
-
-// Middleware to protect routes
-
-
-
-
-export const protect = async (req, res, next) => {
-  let token;
-
-    if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
-        try {
-            token = req.headers.authorization.split(" ")[1];
-
-            //Verify token
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
-            req.user = await User.findById(decoded.id).select("-password");
-
-            if (!req.user) {
-                return res.status(401).json({ message: "User not found" });
-            }
-
-            next();
-        }   catch (error) {
-                console.log("Auth Header:", req.headers.authorization);
-                return res.status(401).json({ message: "Not authorized, token failed" });
-        }
-    }
-
-    if (!token) {
-        return res.status(401).json({ message: "Token not Detected" });
-    }
-};
-
-// Middleware to check admin role
-export const adminOnly = (req, res, next) => {
-    if (req.user && req.user.role === "admin") {
-        next();
-    } else {
-        return res.status(403).json({ message: "Not authorized as an admin" });
-    }
-};
->>>>>>> Hostify2:controller/auth.controller.js
