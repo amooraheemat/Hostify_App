@@ -40,7 +40,6 @@ export const createBooking = async (req, res, next) => {
   }
 };
 
-
 // Get All Bookings
 export const getAllBookings = async (req, res, next) => {
   try {
