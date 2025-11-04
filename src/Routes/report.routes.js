@@ -1,12 +1,12 @@
 import express from "express";
-import { protect, adminOnly } from "../middleware/authmiddleware.js";
+import { protect, adminOnly } from "../Middlewares/auth.middleware.js";
 import {
   createReport,
   getAllReports,
   getOneReport,
   updateReport,
   deleteReport,
-} from "../controllers/report.controller.js";
+} from "../Controllers/report.controller.js";
 
 
 const router = express.Router();

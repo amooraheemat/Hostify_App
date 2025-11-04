@@ -1,19 +1,13 @@
-import express from 'express';
-import bookingRoutes from './booking.route.js';
+import express from "express";
+import bookingRoutes from "./bookingRoute.js";
+import orderRoutes from "./orderRoute.js";
+import feedbackRoutes from "./feedbackRoute.js";
 
 const router = express.Router();
 
+// Mount subroutes
 router.use('/bookings', bookingRoutes);
+router.use('/orders', orderRoutes);
+router.use('/feedback', feedbackRoutes);
 
-
-import express from "express";
-import orderRoutes from "./routes/orderRoutes.js";
-import feedbackRoutes from "./routes/feedbackRoutes.js";
-
-const app = express();
-app.use(express.json());
-
-app.use("/api/order", orderRoutes);
-app.use("/api/feedback", feedbackRoutes);
-
-export default {app, router};
+export default router; // ✅ export the router only

@@ -1,6 +1,6 @@
-import Booking from "../Models/bookings.model.js";
+import Booking from "../Models/booking.model.js";
 import { validationResult } from "express-validator";
-import { sendBookingCancellation, sendBookingConfirmation } from "../Services/emailServices.js";
+import { sendBookingCancellation, sendBookingConfirmation } from "../Services/email.services.js";
 
 
 export const createBooking = async (req, res, next) => {
