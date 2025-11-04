@@ -14,6 +14,7 @@ router.get("/:id", protect, getUserById);
 //Admin: delete user
 router.delete("/:id", protect, adminOnly, deleteUser);
 
+//Auth routes
 router.post('/register', registerUser)
 
 router.post('/login', loginUser)
