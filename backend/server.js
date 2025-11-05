@@ -12,7 +12,7 @@ import userRoutes from "./Routes/user.route.js";
 
 
 dotenv.config();
-connectDB();
+await connectDB();
 
 const app = express();
 
