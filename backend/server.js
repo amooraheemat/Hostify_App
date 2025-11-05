@@ -23,6 +23,11 @@ app.use(morgan("dev"));
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
+//Default route
+app.get("/", (req, res) => {
+  res.send("Hostify backend is live!");
+});
+
 // Routes
 app.use("/api/feedback", feedbackRoutes);
 app.use("/api/orders", orderRoutes);
@@ -31,19 +36,6 @@ app.use("/api/users", userRoutes);
 app.use('/api/bookings', bookingRoutes)
 
 
-
-//Default route
-app.get("/api/health", (req, res) => {
-  res.status(200).json({
-    status: 'OK',
-    message: 'Hostify Backend API is running',
-    timestamp: new Date().toISOString()
-     });
-});
-
-// basic errot handling middlewares
-app.use(notFound);
-app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
