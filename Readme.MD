@@ -56,25 +56,37 @@ Hostify is a smart lounge management webApp that helps lounge owners efficiently
 1. Create a `.env` file in the root directory with these variables:
    ```
    MONGO_URI=your_mongodb_connection_string
-   JWT_SECRET=your_secret_key
+   
+   JWT_SECRET=your_super_secret_jwt_key_change_in_production_min_32_chars
+   JWT_REFRESH_SECRET=your_refresh_token_secret_different_from_jwt
+   JWT_EXPIRE=20m
+   JWT_REFRESH_EXPIRE=3h
    PORT=5000
+
+   Email Configuration (Gmail)
+   EMAIL_HOST=smtp.gmail.com
+   EMAIL_PORT=587
+   EMAIL_USER=your-email@gmail.com
+   EMAIL_PASS=your-gmail-app-password
+   EMAIL_FROM=noreply@hostify.com
+   EMAIL_FROM_NAME=Hostify
    ```
 
 2. Start the MongoDB server
 
 3. Run the application:
    ```
-   node app.js
+   node server.js
    ```
 
-4. Open your browser and go to `http://localhost:5000/api`
+4. Open your browser and go to `http://localhost:5000/api/health`
 
 ## Project Structure
 
 ```
 Hostify_App/
 │
-├── src/
+├── backend/
 │   ├── Config/
 │   │   └── db.js                       # Database connection setup (MongoDB)
 │   │
@@ -112,10 +124,16 @@ Hostify_App/
 │   │   └── email.services.js           # Nodemailer email configurations (confirmation, alerts)
 │   │
 │   ├── Utils/
-│   │   ├── generateToken.js            # JWT generator
-│   │   └── logger.js                   # Optional logging utility
+│   │   └──  sendemail.js               # Send Email 
 │   │
-│   ├── app.js                          # Express app setup and middleware configuration
+│   │── Validators/ 
+│   │   ├── feedbackValidator.js            # Validates Feedback
+│   │   └── orderValidator.js               # Validates Order
+│   │── Views/email 
+│   │   ├── bookingCancellation.ejs            # Cancelled Booking Notification
+│   │   └── bookingConfirmation.ejs            # Confirmed Booking Notification
+│   │
+│   │
 │   └── server.js                       # Server entry point (runs Express app)
 │
 ├── .env                                # Environment variables
