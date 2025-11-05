@@ -1,11 +1,7 @@
 import Report from "../Models/report.model.js";
 import Feedback from "../Models/feedback.model.js";
 import Order from "../Models/order.model.js";
-<<<<<<< HEAD:src/Controllers/report.controller.js
 import Booking from "../Models/booking.model.js";
-=======
-import Booking from "../Models/bookings.model.js";
->>>>>>> df1144ea79a27d9583da0135b15c97aae16de5ec:backend/Controllers/report.controller.js
 import User from "../Models/user.model.js";
 
 /**
