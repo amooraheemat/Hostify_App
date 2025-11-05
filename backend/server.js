@@ -24,6 +24,11 @@ app.use(morgan("dev"));
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
+//Default route
+app.get("/", (req, res) => {
+  res.send("Hostify backend is live!");
+});
+
 // Routes
 app.use("/api/feedback", feedbackRoutes);
 app.use("/api/orders", orderRoutes);
@@ -34,11 +39,6 @@ app.use('/api/bookings', bookingRoutes)
 // basic health
 app.use(notFound);
 app.use(errorHandler);
-
-//Default route
-app.get("/", (req, res) => {
-  res.send("HOSTIFY API is running...");
-});
 
 const PORT = process.env.PORT || 5000;
 
