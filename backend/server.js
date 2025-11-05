@@ -31,14 +31,20 @@ app.use("/api/reports", reportRoutes);
 app.use("/api/users", userRoutes);
 app.use('/api/bookings', bookingRoutes)
 
-// basic health
-app.use(notFound);
-app.use(errorHandler);
+
 
 //Default route
-app.get("/", (req, res) => {
-  res.send("HOSTIFY API is running...");
+app.get("/api/health", (req, res) => {
+  res.status(200).json({
+    status: 'OK',
+    message: 'Hostify Backend API is running',
+    timestamp: new Date().toISOString()
+     });
 });
+
+// basic errot handling middlewares
+app.use(notFound);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
