@@ -6,16 +6,16 @@ import {
   getOneReport,
   updateReport,
   deleteReport,
-} from "../controllers/report.controller.js";
+} from "../Controllers/report.controller.js";
 
 
 const router = express.Router();
 
 // Admin can create report
-router.post("/", protect, createReport);       
+router.post("/create", protect, createReport);       
 
 // Only admin sees all reports
-router.get("/", protect, adminOnly, getAllReports); 
+router.get("/all", protect, adminOnly, getAllReports); 
 
 // Admin views just one report by id
 router.get("/:id", protect, getOneReport);

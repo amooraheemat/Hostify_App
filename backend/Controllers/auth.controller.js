@@ -1,6 +1,6 @@
 import User from "../Models/user.model.js";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { sendEmail } from "../Utils/sendemail.js";
 
 //Generate JWT Token

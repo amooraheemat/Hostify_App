@@ -1,7 +1,9 @@
 import express from "express";
 import dotenv from "dotenv";
-import { connectDatabase } from "./Config/db.js";
-import { notFound, errorHandler } from './Middlewares/errorMiddleware.js'
+import cors from "cors"
+import morgan from "morgan";
+import { connectDB } from "./Config/db.js";
+import { notFound, errorHandler } from './Middlewares/error.middleware.js'
 import bookingRoutes from "./Routes/booking.route.js"; 
 import feedbackRoutes from './Routes/feedback.route.js';
 import orderRoutes from './Routes/order.route.js';
@@ -10,13 +12,15 @@ import userRoutes from "./Routes/user.route.js";
 
 
 dotenv.config();
-connectDatabase();
+connectDB();
 
 const app = express();
 
 app.use(express.json());
-app.use(morgan('dev'));
 app.use(cors());
+app.use(morgan("dev"));
+
+// View engine setup
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
@@ -37,5 +41,11 @@ app.get("/", (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => connectDatabase(),
-console.log(`Server running on port ${PORT}`));
+
+// for local testing
+if (process.env.NODE_ENV !== "production") {
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
+
+// for Vercel deployment
+export default app;
