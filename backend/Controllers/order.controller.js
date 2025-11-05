@@ -12,7 +12,7 @@ export const createOrder = async (req, res, next) => {
 };
 
 // Get all orders (Admin) or user’s orders
-export const getOrders = async (req, res, next) => {
+export const getallOrders = async (req, res, next) => {
   try {
     const filter = req.user.role === "admin" ? {} : { userId: req.user.id };
     const orders = await Order.find(filter).sort({ createdAt: -1 });

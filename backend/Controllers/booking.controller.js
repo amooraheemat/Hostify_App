@@ -16,26 +16,29 @@ export const createBooking = async (req, res, next) => {
     
 
     const booking = await Booking.create({
-      user: req.user.id,
-      customerName,
-      phoneNum,
-      space,
-      date,
-      time,
-      people,
+      user: req.user._id,
+      customerName: req.body.customerName,
+      phoneNum: req.body.phoneNum,
+      space: req.body.space,
+      date: req.body.date,
+      time: req.body.time,
+      people:req.body.people,
+      email: req.user.email,
       
     });
 
    
 
-    await sendBookingConfirmation(booking);
+    await sendBookingConfirmation({
+      ...booking.toObject(),
+      email: req.user.email,
+});
 
-    res.status(201).json({ message: "Booking created successfully", token, booking });
+    res.status(201).json({ message: "Booking created successfully", booking });
   } catch (err) {
     next(err);
   }
 };
-
 
 // Get All Bookings
 export const getAllBookings = async (req, res, next) => {
@@ -91,14 +94,26 @@ export const cancelBooking = async (req, res, next) => {
     if (!booking) {
       return res.status(404).json({ message: 'Booking not found' });
     }
+    if (!booking.user) {
+      return res
+        .status(400)
+        .json({ message: "This booking is not linked to any user." });
+    }
 
+    if (booking.user.toString() !== req.user._id.toString() && req.user.role !== "admin") {
+      return res.status(403).json({ message: "You are not allowed to cancel this booking" });
+    }
     booking.status = 'Cancelled';
     await booking.save();
 
     const plainBooking = booking.toObject();
 
     
-    await sendBookingCancellation(plainBooking);
+    await sendBookingCancellation({
+      ...plainBooking,
+      email: req.user.email,
+    });
+
 
     res.json({
       message: 'Booking cancelled successfully',
