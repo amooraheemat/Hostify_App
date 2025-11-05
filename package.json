@@ -1,0 +1,41 @@
+{
+  "name": "hostify_app",
+  "version": "1.0.0",
+  "description": "Hostify is a smart lounge management webApp that helps lounge owners efficiently handle *bookings*, *orders*, and *feedback* all in one environment.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amooraheemat/Hostify_App.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amooraheemat/Hostify_App/issues"
+  },
+  "homepage": "https://github.com/amooraheemat/Hostify_App#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-validator": "^7.3.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.19.2",
+    "morgan": "^1.10.1",
+    "nodemailer": "^7.0.10"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.4",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/nodemailer": "^7.0.3",
+    "nodemon": "^3.1.10"
+  }
+}
