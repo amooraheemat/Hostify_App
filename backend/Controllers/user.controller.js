@@ -12,22 +12,22 @@ export const getAllUsers = async (req, res) => {
 };
 
 //Get user by ID self for admin
-export const getUserById = async (req, res) => {
+export const getUserByUsername = async (req, res) => {
   try {
-    const { id } = req.params
+    const { username } = req.params
 
-    //Validate ID before using it
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+    //Validate  before using it
+    if (!mongoose.Types.ObjectId.isValid(username)) {
       return res.status(400).json({ success: false, message: "Invalid User ID" });
     }
 
     //Authorization check self or admin
-    if (req.user.role !== "admin" && req.user._id.toString() !== id) {
+    if (req.user.role !== "admin" && req.user.username !== username) {
       return res.status(403).json({ success: false, message: "Unauthorized access" });
     }
 
     //Fetch the user
-    const user = await User.findById(id).select("-password");
+    const user = await User.findOne({username}).select("-password");
     if (!user) {
       return res.status(404).json({ success: false, message: "User not found" });
     }

@@ -18,9 +18,14 @@ export const registerUser = async (req, res) => {
     const { name, username, email, password, phone, role } = req.body;
 
     //Check if user already exists
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ 
+  $or: [
+    { email: email.toLowerCase() },   // email check
+    { username: username }            // username check
+  ]
+});
     if (existingUser) {
-      return res.status(400).json({ message: "User already exists" });
+      return res.status(400).json({ message: "Username or Email Already exists" });
     }
 
     //Create new user
@@ -49,7 +54,9 @@ export const registerUser = async (req, res) => {
       message: "User registered successfully",
       user: {
         id: newUser._id,
+        username: newUser.username,
         name: newUser.name,
+        phone: newUser.phone,
         email: newUser.email,
         role: newUser.role,
       },
@@ -63,10 +70,10 @@ export const registerUser = async (req, res) => {
 //Login user
 export const loginUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
-    //Find user by email
-    const user = await User.findOne({ email });
+    //Find user by username
+    const user = await User.findOne({ username });
     if (!user) {
       return res.status(400).json({ message: "User not found" });
     }
@@ -85,7 +92,9 @@ export const loginUser = async (req, res) => {
       user: {
         id: user._id,
         name: user.name,
+        username: user.username,
         email: user.email,
+        phone: user.phone,
         role: user.role,
       },
       token,
