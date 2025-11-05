@@ -19,20 +19,7 @@
     "url": "https://github.com/amooraheemat/Hostify_App/issues"
   },
   "homepage": "https://github.com/amooraheemat/Hostify_App#readme",
-<<<<<<< HEAD
-  
   "dependencies": {
-    "bcrypt": "^6.0.0",
-=======
-  "devDependencies": {
-    "@types/express": "^5.0.4",
-    "@types/jsonwebtoken": "^9.0.10",
-    "@types/nodemailer": "^7.0.3",
-    "morgan": "^1.10.1",
-    "nodemon": "^3.1.10"
-  },
-  "dependencies": {
->>>>>>> df1144ea79a27d9583da0135b15c97aae16de5ec
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
