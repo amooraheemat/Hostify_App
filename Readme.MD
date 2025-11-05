@@ -115,7 +115,6 @@ Hostify_App/
 │   │   ├── generateToken.js            # JWT generator
 │   │   └── logger.js                   # Optional logging utility
 │   │
-│   ├── app.js                          # Express app setup and middleware configuration
 │   └── server.js                       # Server entry point (runs Express app)
 │
 ├── .env                                # Environment variables
