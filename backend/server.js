@@ -14,10 +14,15 @@ import userRoutes from "./Routes/user.route.js";
 dotenv.config();
 connectDB();
 
+// Initialize express ap
 const app = express();
+const corsOptions = {
+  origin: "https://hostify-lounge-project.vercel.app/",
+};
 
+// middlewares
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(morgan("dev"));
 
 // View engine setup
