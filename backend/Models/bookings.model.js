@@ -6,7 +6,6 @@ const bookingSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId, ref: "User", required: true},
   customerName: { type: String, required: true },
   phoneNum: { type: String, required: true },
-  email: { type: String, required: true, lowercase: true, trim: true },
   space: { type: String, enum: ["VIP", "Regular", "Outdoor"], default: "Regular" },
   date: { type: String, required: true },
   time: { type: String, required: true },
