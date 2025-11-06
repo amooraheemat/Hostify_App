@@ -37,22 +37,6 @@ app.use('/api/bookings', bookingRoutes)
 
 
 
-<<<<<<< HEAD
-//Default route
-app.get("/api/health", (req, res) => {
-  res.status(200).json({
-    status: 'OK',
-    message: 'Hostify Backend API is running',
-    timestamp: new Date().toISOString()
-     });
-});
-
-// basic errot handling middlewares
-app.use(notFound);
-app.use(errorHandler);
-
-=======
->>>>>>> c902f5c2e371c7e71b8dd7e76c5df8fe693323c2
 const PORT = process.env.PORT || 5000;
 
 // for local testing
