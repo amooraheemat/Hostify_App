@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors"
 import morgan from "morgan";
-import { connectDB } from "./config/db.js";
+import { connectDB } from "./Config/db.js";
 import { notFound, errorHandler } from './Middlewares/error.middleware.js'
 import bookingRoutes from "./Routes/booking.route.js"; 
 import feedbackRoutes from './Routes/feedback.route.js';
@@ -12,6 +12,7 @@ import userRoutes from "./Routes/user.route.js";
 
 
 dotenv.config();
+connectDB();
 
 const app = express();
 
@@ -35,13 +36,14 @@ app.use("/api/reports", reportRoutes);
 app.use("/api/users", userRoutes);
 app.use('/api/bookings', bookingRoutes)
 
-
+// basic health
+app.use(notFound);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
 // for local testing
 if (process.env.NODE_ENV !== "production") {
-  await connectDB();
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 }
 
