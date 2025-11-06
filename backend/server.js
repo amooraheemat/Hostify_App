@@ -16,8 +16,22 @@ connectDB();
 
 // Initialize express ap
 const app = express();
+const allowedOrigins = [
+  "https://hostify-lounge-project.vercel.app",
+  "http://localhost:5173",
+  "http://127.0.0.1:5502",
+  "http://hostify-xi.vercel.app"
+];
+
 const corsOptions = {
-  origin: "https://hostify-lounge-project.vercel.app/",
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
 };
 
 // middlewares
