@@ -23,6 +23,11 @@ app.use(morgan("dev"));
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
+//Default route
+app.get("/", (req, res) => {
+  res.send("Hostify backend is live!");
+});
+
 // Routes
 app.use("/api/feedback", feedbackRoutes);
 app.use("/api/orders", orderRoutes);
@@ -32,6 +37,7 @@ app.use('/api/bookings', bookingRoutes)
 
 
 
+<<<<<<< HEAD
 //Default route
 app.get("/api/health", (req, res) => {
   res.status(200).json({
@@ -45,6 +51,8 @@ app.get("/api/health", (req, res) => {
 app.use(notFound);
 app.use(errorHandler);
 
+=======
+>>>>>>> c902f5c2e371c7e71b8dd7e76c5df8fe693323c2
 const PORT = process.env.PORT || 5000;
 
 // for local testing
