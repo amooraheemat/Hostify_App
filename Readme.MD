@@ -34,10 +34,10 @@ Hostify is a smart lounge management webApp that helps lounge owners efficiently
 - **Backend**: Node.js, Express
 - **Database**: MongoDB
 - **Authentication**: JWT (JSON Web Tokens)
-- **Security**: bcrypt for password hashing
+- **Security**: bcryptjs for password hashing
 - **validation**: , express-validator for input validation
 - **Testing**: Postman
-- **Deployment**: Render
+- **Deployment**: Vercel
 - **Environment Management**: dotenv
 
 ## Setup Instructions
@@ -45,7 +45,7 @@ Hostify is a smart lounge management webApp that helps lounge owners efficiently
 1. Make sure you have **Node.js** installed 
  - [download from nodejs.org](https://nodejs.org/)
 2. Install MongoDB if you haven't done that already, create an account and cluster
- - 
+ - https://www.mongodb.com/try/download/community
 3. Clone this repository 
  - git clone https://github.com/amooraheemat/Hostify_App.git
    cd Hostify_App
@@ -74,54 +74,60 @@ Hostify is a smart lounge management webApp that helps lounge owners efficiently
 ```
 Hostify_App/
 │
-├── src/
-│   ├── Config/
-│   │   └── db.js                       # Database connection setup (MongoDB)
+├── backend/                                # Core backend source folder (API and business logic)
 │   │
-│   ├── Controllers/
-│   │   ├── auth.controller.js          # Handles login, registration, admin creation
-│   │   ├── booking.controller.js       # Booking-related logic (create, update, cancel)
-│   │   ├── feedback.controller.js      # Manages customer feedback
-│   │   ├── order.controller.js         # Handles customer orders
-│   │   ├── report.controller.js        # Staff daily reports logic
-│   │   └── user.controller.js          # Manages user-related logic
+│   ├── Config/                             # Configuration files for database and external services
+│   │   └── db.js                           # Connects to MongoDB using Mongoose
 │   │
-│   ├── Middleware/
-│   │   ├── auth.middleware.js          # JWT verification and admin protection
-│   │   ├── booking.middleware.js       # Booking-specific middleware
-│   │   ├── error.middleware.js         # Centralized error handling
-│   │   └── validator.middleware.js     # Input validation (express-validator)
+│   ├── Controllers/                        # Route handler functions (business logic)
+│   │   ├── auth.controller.js              # Handles user login, registration, and admin creation
+│   │   ├── booking.controller.js           # Processes room booking requests and updates
+│   │   ├── feedback.controller.js          # Manages user feedback submissions
+│   │   ├── order.controller.js             # Handles customer food/service order operations
+│   │   ├── report.controller.js            # Manages staff daily report submissions
+│   │   └── user.controller.js              # Retrieves, updates, and manages user profiles
 │   │
-│   ├── Models/
-│   │   ├── auth.model.js               # Authentication schema
-│   │   ├── booking.model.js            # Booking schema
-│   │   ├── feedback.model.js           # Feedback schema
-│   │   ├── order.model.js              # Order schema
-│   │   ├── report.model.js             # Staff daily report schema
-│   │   └── user.model.js               # User/Admin schema
+│   ├── Middleware/                         # Express middleware functions for validation and security
+│   │   ├── auth.middleware.js              # JWT authentication and admin-only route protection
+│   │   ├── error.middleware.js             # Global error handler for catching exceptions
+│   │   └── validator.middleware.js         # Validates incoming request data using express-validator
 │   │
-│   ├── Routes/
-│   │   ├── auth.routes.js              # /api/auth
-│   │   ├── booking.routes.js           # /api/bookings
-│   │   ├── feedback.routes.js          # /api/feedback
-│   │   ├── order.routes.js             # /api/orders
-│   │   ├── report.routes.js            # /api/reports
-│   │   └── user.routes.js              # /api/users
+│   ├── Models/                             # Mongoose schemas and data models
+│   │   ├── bookings.model.js               # Schema for bookings (date, user, room, status)
+│   │   ├── feedback.model.js               # Schema for feedback messages from users
+│   │   ├── order.model.js                  # Schema for food/service orders
+│   │   ├── report.model.js                 # Schema for staff daily work reports
+│   │   └── user.model.js                   # Schema for user and admin accounts
 │   │
-│   ├── Services/
-│   │   └── email.services.js           # Nodemailer email configurations (confirmation, alerts)
+│   ├── Routes/                             # API endpoint definitions and route mappings
+│   │   ├── booking.routes.js               # Defines all /api/bookings routes
+│   │   ├── feedback.routes.js              # Defines all /api/feedback routes
+│   │   ├── order.routes.js                 # Defines all /api/orders routes
+│   │   ├── report.routes.js                # Defines all /api/reports routes
+│   │   └── user.routes.js                  # Defines all /api/users routes
 │   │
-│   ├── Utils/
-│   │   ├── generateToken.js            # JWT generator
-│   │   └── logger.js                   # Optional logging utility
+│   ├── Services/                           # Reusable backend services (emails, notifications, etc.)
+│   │   └── email.services.js               # Handles email sending for booking confirmations
 │   │
-│   └── server.js                       # Server entry point (runs Express app)
+│   ├── Utils/                              # Utility/helper functions used across the backend
+│   │   └── sendemail.js                    # Configures Nodemailer for sending alerts and notifications
+│   │
+│   ├── Validators/                         # Custom validation logic for specific features
+│   │   ├── feedbackValidator.js            # Validation rules for feedback inputs
+│   │   └── orderValidator.js               # Validation rules for order creation and updates
+│   │
+│   ├── Views/email/                        # Email templates rendered using EJS
+│   │   ├── bookingCancellation.ejs         # Template for booking cancellation email
+│   │   └── bookingConfirmation.ejs         # Template for booking confirmation email
+│   │
+│   ├── package.json                        # Project dependencies, scripts, and metadata
+│   ├── server.js                           # Server entry point (starts the Express app)
+│   └── vercel.json                         # Deployment configuration for Vercel hosting
 │
-├── .env                                # Environment variables
-├── .gitignore                          # Ignored files for git
-├── package.json                        # Project dependencies and scripts
-├── postman_collection.json             # Postman API collection (optional)
-└── README.md                           # Project documentation
+├── .env                                    # Environment variables (DB URI, JWT secret, etc.)
+├── .gitignore                              # Files and folders ignored by Git
+├── package-lock.json                       # Dependency lock file for consistent installations
+└── README.md                               # Project documentation and usage instructions
 ```
 
 ## How It Works
@@ -138,7 +144,7 @@ Hostify_App/
 - Add user profiles
 - Add caching (Redis) for improved performance
 - Add admin analytics dashboard
-- Implement notifications for bookings and orders
+- Implement notifications for orders
 - Integrate payment gateway for online transactions
 - Improve the user interface
 
