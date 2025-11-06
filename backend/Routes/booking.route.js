@@ -13,7 +13,7 @@ import { protect, adminOnly } from "../Middlewares/auth.middleware.js";
 const router = express.Router();
 
 // Booking registration
-router.post("/book",   protect, bookingValidator,   createBooking);
+router.post("/",   protect, bookingValidator,   createBooking);
 
 
 // Authenticated booking routes

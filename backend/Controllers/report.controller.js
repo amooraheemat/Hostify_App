@@ -1,7 +1,7 @@
 import Report from "../Models/report.model.js";
 import Feedback from "../Models/feedback.model.js";
 import Order from "../Models/order.model.js";
-import Booking from "../Models/bookings.model.js";
+import Booking from "../Models/booking.model.js";
 import User from "../Models/user.model.js";
 
 /**

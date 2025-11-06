@@ -1,4 +1,4 @@
-import Booking from "../Models/bookings.model.js";
+import Booking from "../Models/booking.model.js";
 import { validationResult } from "express-validator";
 import { sendBookingCancellation, sendBookingConfirmation } from "../Services/email.services.js";
 

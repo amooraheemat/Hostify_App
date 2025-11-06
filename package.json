@@ -1,7 +1,7 @@
 {
   "name": "hostify_app",
   "version": "1.0.0",
-  "description": "",
+  "description": "Hostify is a smart lounge management webApp that helps lounge owners efficiently handle *bookings*, *orders*, and *feedback* all in one environment.",
   "type": "module",
   "main": "server.js",
   "scripts": {
