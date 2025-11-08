@@ -31,7 +31,7 @@ export const deleteFeedback = async (req, res, next) => {
 
     res.json({
       message: "Feedback deleted successfully",
-      deletedFeedback: feedback,
+      deletedFeedback: feedback
     });
   } catch (err) {
     next(err);
