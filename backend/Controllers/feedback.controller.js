@@ -20,3 +20,15 @@ export const getAllFeedback = async (req, res, next) => {
     next(err);
   }
 };
+
+// Delete Feedback (Admin)
+export const deleteFeedback = async (req, res, next) => {
+  try {
+    const feedback = await Feeback.findByIdAndDelete(req.params.id);
+    if (!order) return res.status(404).json({ message: "Feedback not found" });
+
+    res.json({ message: "Feedback deleted successfully", deleteFeeback:feedback });
+  } catch (err) {
+    next(err);
+  }
+};
