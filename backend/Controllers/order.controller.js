@@ -4,7 +4,7 @@ import Order from "../Models/order.model.js";
 export const createOrder = async (req, res, next) => {
   try {
     const { items, totalPrice } = req.body;
-    const order = await Order.create({ userId: req.user.id, items, totalPrice });
+    const order = await Order.create({ userId: req.user.id,const order = await Order.create({ userId: req.user.id,customerName: req.user.username || req.user.name || req.user.email, items, totalPrice });
     res.status(201).json({ success: true, order });
   } catch (err) {
     next(err);
@@ -15,7 +15,10 @@ export const createOrder = async (req, res, next) => {
 export const getallOrders = async (req, res, next) => {
   try {
     const filter = req.user.role === "admin" ? {} : { userId: req.user.id };
-    const orders = await Order.find(filter).sort({ createdAt: -1 });
+    const orders = await Order.find(filter)
+      .populate("userId", "username name email")
+      .sort({ createdAt: -1 });
+      
     res.json({ success: true, orders });
   } catch (err) {
     next(err);
