@@ -1,5 +1,5 @@
 import express from "express";
-import { createFeedback, getAllFeedback,deleteFeedback } from "../Controllers/feedback.controller.js";
+import { createFeedback, getAllFeedback, deleteFeedback } from "../Controllers/feedback.controller.js";
 import { protect, adminOnly } from "../Middlewares/auth.middleware.js";
 import { feedbackValidator } from "../Validators/feedbackValidator.js";
 import { handleValidation } from "../Middlewares/validator.middleware.js";
