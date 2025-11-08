@@ -24,10 +24,15 @@ export const getAllFeedback = async (req, res, next) => {
 // Delete Feedback (Admin)
 export const deleteFeedback = async (req, res, next) => {
   try {
-    const feedback = await Feeback.findByIdAndDelete(req.params.id);
-    if (!order) return res.status(404).json({ message: "Feedback not found" });
+    const feedback = await Feedback.findByIdAndDelete(req.params.id);
 
-    res.json({ message: "Feedback deleted successfully", deleteFeeback:feedback });
+    if (!feedback)
+      return res.status(404).json({ message: "Feedback not found" });
+
+    res.json({
+      message: "Feedback deleted successfully",
+      deletedFeedback: feedback,
+    });
   } catch (err) {
     next(err);
   }
