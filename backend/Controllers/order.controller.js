@@ -4,7 +4,10 @@ import Order from "../Models/order.model.js";
 export const createOrder = async (req, res, next) => {
   try {
     const { items, totalPrice } = req.body;
-    const order = await Order.create({ userId: req.user.id,const order = await Order.create({ userId: req.user.id,customerName: req.user.username || req.user.name || req.user.email, items, totalPrice });
+
+    const order = await Order.create({ 
+      userId: req.user.id,
+      customerName: req.user.username || req.user.name || req.user.email, items, totalPrice });
     res.status(201).json({ success: true, order });
   } catch (err) {
     next(err);
