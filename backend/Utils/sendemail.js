@@ -13,6 +13,9 @@ export const sendEmail = async (to, subject, username, message, link = null) => 
       },
     });
 
+    // Use Hostify URL as fallback link
+    const finalLink = link || "https://hostify-lounge-project.vercel.app";
+
     // HTML email body
     const htmlContent = `
       <div style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 30px;">
@@ -30,7 +33,7 @@ export const sendEmail = async (to, subject, username, message, link = null) => 
             ${
               link
                 ? `<p style="margin-top: 20px;">
-                    <a href="${link}" style="background-color: #2a9d8f; color: white; text-decoration: none; padding: 10px 18px; border-radius: 5px; display: inline-block;">
+                    <a href="${finalLink}" style="background-color: #2a9d8f; color: white; text-decoration: none; padding: 10px 18px; border-radius: 5px; display: inline-block;">
                       Visit Hostify
                     </a>
                   </p>`
@@ -41,7 +44,7 @@ export const sendEmail = async (to, subject, username, message, link = null) => 
               link
                 ? `<p style="margin-top: 30px; font-size: 13px; color: #888;">
                     If the button doesn’t work, copy and paste this link into your browser:<br>
-                    <a href="${link}" style="color: #2a9d8f;">${link}</a>
+                    <a href="${finalLink}" style="color: #2a9d8f;">${link}</a>
                   </p>`
                 : ""
             }
@@ -50,7 +53,7 @@ export const sendEmail = async (to, subject, username, message, link = null) => 
           <div style="background-color: #fafafa; padding: 15px; text-align: center; border-top: 1px solid #eee; border-radius: 0 0 10px 10px;">
             <p style="font-size: 13px; color: #666;">
               © ${new Date().getFullYear()} Hostify. All rights reserved.<br>
-              <a href="${process.env.CLIENT_URL}" style="color: #2a9d8f; text-decoration: none;">Visit our website</a>
+              <a href="${finalLink}" style="color: #2a9d8f; text-decoration: none;">Visit our website</a>
             </p>
           </div>
         </div>
